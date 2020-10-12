@@ -1,0 +1,44 @@
+.container{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.container audio{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.container audio:focus{
+    outline: none;
+}
+
+body{
+    background: #000;
+    color: #888;
+}
+
+.lrc-container{
+    overflow: hidden;
+    height: 400px;
+    text-align: center;
+    margin-top: 30px;
+    position: relative;
+}
+
+.lrc-container ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: margin-top .7s;
+}
+
+.lrc-container ul li{
+    height: 35px;
+    line-height: 35px;
+    transition: .7s;
+}
+
+.lrc-container ul li.active{
+    color: #fff;
+}

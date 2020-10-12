@@ -1,0 +1,145 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: #323232;
+}
+
+.player{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.player .player_nav{
+    height: 100px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 15px 25px;
+    display: flex;
+}
+.player .player_nav .player_CD{
+    position: relative;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    left: 10px;
+    margin-right: 40px;
+    top:-50%;
+
+}
+.player .player_nav .player_CD::after{
+  content: "";
+  width: 25px;
+  height: 25px;
+  background: white;
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 99;
+
+}
+.player.play .player_nav .player_CD::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow: 0px 30px 28px -10px rgba(0, 0, 0, 0.3);
+}
+.player .player_nav .player_CD .player_cdData{
+    display: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.player .player_nav .player_CD .player_cdData.active_song{
+    display:block;
+}
+
+/* 控制按钮区域 */
+.player .player_nav .player_control{
+    display: flex;
+    align-items: center;
+    /* 居中对象各项div元素 */
+    justify-content: space-around;
+    /* 平均分布的时候留空白 */
+}
+.player .player_nav .player_control>div{
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    display: flex;
+    /* background: #323232; */
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+.icon{
+    width: 2em;
+    height: 2em;
+    font-size: 30px;
+    fill: #d7dce2;
+    cursor: pointer;
+}
+.player_prev svg{
+    transform: rotate(180deg);
+}
+.player_play svg{
+    font-size: 20px;
+}
+.icon.pause{
+    display: none;
+}
+/* 加上play */
+.player.play .icon.pause{
+    display: block;
+}
+.player.play .icon.play{
+    display: none;
+}
+/* 加上play */
+
+.player .player_nav .player_control>div:hover{
+    background: #d7dce2
+}
+.player .player_nav .player_control>div:hover svg{
+    fill: #ffffff;
+}
+
+/* 背景部分 */
+.backMask{
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    left: 5%;
+    top: 0;
+    background: rgb(9, 150, 231);
+    border-radius: 15px;
+    text-align: center;
+    z-index: -1;
+}
+
+/* 播放进度条 */
+.player_timeLine{
+    width: 230px;
+    height: 4px;
+    position: absolute;
+    right: 25px;
+    top: 110px;
+    background: #d7dce2;
+}
+.player_timeLine .player_bar{
+    width: 0;
+    height: 4px;
+    background-color:#099ef5;
+}
