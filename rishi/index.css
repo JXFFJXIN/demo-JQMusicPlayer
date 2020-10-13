@@ -7,6 +7,7 @@ html,body{
     height:100%;
     /* 色相 饱和度  亮度 */
     background: hsl(194,66%,49%);
+    transition: background .2s;
 }
 
 .wrapper{
