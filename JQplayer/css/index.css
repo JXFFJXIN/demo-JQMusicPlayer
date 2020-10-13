@@ -2,16 +2,22 @@
     padding: 0;
     margin: 0;
 }
+/* 背景颜色 */
 body{
     background: #323232;
 }
-
+/* 控制面板 */
 .player{
+    /* 居中 */
     position: absolute;
+    /* 1.脱离文档流 */
     left: 50%;
     top: 50%;
+    /* 2.控制位置 */
     transform: translate(-50%,-50%);
+    /* 3.移动自身百分之五十 */
 }
+/* 控制面板条 */
 .player .player_nav{
     height: 100px;
     background: #ffffff;
@@ -19,7 +25,9 @@ body{
     padding: 15px 25px;
     display: flex;
 }
+/* CD */
 .player .player_nav .player_CD{
+    /* 定位父级 */
     position: relative;
     width: 112px;
     height: 112px;
@@ -43,6 +51,7 @@ body{
 
 }
 .player.play .player_nav .player_CD::before{
+    /* CD的阴影 */
     content: "";
     position: absolute;
     left: 0;
@@ -52,16 +61,20 @@ body{
     border-radius: 50%;
     box-shadow: 0px 30px 28px -10px rgba(0, 0, 0, 0.3);
 }
+/* CD中的图片 */
 .player .player_nav .player_CD .player_cdData{
+    /* 隐藏不活跃的CD */
     display: none;
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    /* background属性 */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .player .player_nav .player_CD .player_cdData.active_song{
+    /* 显示活跃的CD */
     display:block;
 }
 
@@ -84,6 +97,9 @@ body{
     transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 
 }
+/* 设置svg样式 */
+/* fill改变背景颜色 */
+/* em单位 */
 .icon{
     width: 2em;
     height: 2em;
