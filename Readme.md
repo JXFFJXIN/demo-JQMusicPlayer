@@ -222,4 +222,125 @@ t.to('.player_cdData',3,{
 t.pause();//暂停
 ```
 # 歌词滚动
+## 组件结构
+div.container
+|——audio <!-- 播放器 -->
+|——div.lrc-container<!-- 歌词控制 -->
+|  |——ul<!-- 歌词内容 -->
+## 组件样式
+<!-- 浏览器默认样式表——agent stylesheet -->
+1. audio部分
+```css
+/* 
+1. audio默认在页面上是不显示的，可以添加controls属性来显示audio标签
+2. audio的display默认是行盒
+*/
+.container audio{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+```
+2. 歌词相关
+* 滚动——设置ul的margin-top属性为负数即可进行滚动
+* 高亮——设置.active的字体颜色
+## 组件行为
+1. 获取歌词文件，直接模板字符串添加或利用AJAX获取
+2. 根据字符串变量lrc的值，计算出一个数组，数组的每一项是一个对象，对象中记录了以下信息:
+`{time:255.75,words:"贪欢一刻偏教那女儿情长埋葬"}`
+```js
+function createLrcArray(){
+    var parts = lrc.split("\n");//用换行符切割数组
+    for(var i = 0 ; i < parts.length ; i ++){
+        var str = parts[i];//拿到这一行的字符串
+        parts[i] = createLrcObject(str);
+    }
+    return parts;
+    function createLrcObject(str){
+        var parts = str.split("]");
+        var value = parts[1];//歌词部分
+        var time = parts[0];//时间部分
+        var time = time.replace("[","");//去掉左中括号
+        var timeParts = time.split(":"); //分割时间
+        var minute = parseInt(timeParts[0]);//分钟数
+        var second = parseFloat(timeParts[1]);//秒数
+        time = minute*60+second;
+        return {
+            time:time,
+            words:words
+        }
+    }
+}
+```
+3. 根据歌词创建所有的li元素
+```js
+function createLrcLis(){
+    for(var i = 0 ; i < lrcArray.length ; i ++){
+        var lrcObj = lrcArray[i]; //取出歌词对象
+        var li = document.createElement("li");//创建li元素
+        li.innerText = lrcObj.words;//写入歌词
+        ul.appendChild(li);
+    }
+}
+```
+4. 根据播放时间，设置当前播放歌词的效果
+```js
+// 效果：1. ul的margin-top
+//       2. li的active样式
+function setCurrent(){
+    var index = getCurrentIndex();//得到当前播放的歌词是数组的第几项
+    //1. 设置li的active样式
+    setLiActive();
+    //2. 设置ul的margin-top属性
+    setUlMarginTop();
+    //定义设置li的active样式的函数
+    function setLiActive(){
+        //1. 找到之前的具有acitve类名的li，去掉active类名
+        var li = ul.querySelector(".active")
+        if(li){//li存在
+            li.className = "";//去掉active
+        }
+        //2. 找到当前的li，加上active
+        if(index !== -1 ){
+            //有对应的歌词
+            ul.children[index].className = "active";//根据index得到对应的li，并赋予active类名
+        }
+    }
+    //定义设置ul的margin-top属性的函数
+    function setUlMarginTop(){
+/* 
+var config = {
+    lrcContainerHeight:450,//歌词容器高度
+    liHeight:35,//li元素的高度
+}
+*/
+        var midHeigth = config.lrcContainerHeight/2-config.liHeight/2;
+        var top = midHeight - index * config.liHeight;
+        ifi(top>0){
+            top = 0;
+        }
+        ul.style.marginTop = top + "px";
+    }
+}
+// 根据当前播放器的播放时间，从lrcArray数组中得到对应的下标
+var audio = document.getElementById("ad");//获取audio元素
+// audio元素自带currentTime方法，来表示当前播放时间戳
+function getCurrentIndex(){
+    var playTime = audio.currentTime;//得到audio元素当前播放的时间
+    for(var i = lrcArray.length-1 ; i >=0 ; i --){//倒着循环
+        var lrcObj = lrcArray[i];//取出歌词对象
+        if(playTime >= lrcObj.time){
+            return i;//返回下标结束循环
+        }
+    }
+    return -1;//返回-1表示不对应任何歌词
+}
+```
+5. 设置audio标签不断调用setCurrent()函数
+>audio.ontimeupdate事件,当播时间发生变化时触发
+```js
+audio.ontimeupdate = function(){
+    setCurrent();
+}
+```
 # 日食音量

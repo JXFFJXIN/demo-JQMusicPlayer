@@ -72,7 +72,7 @@ var lrc = `[00:01.06]难念的经
 [04:19.48]`;
 var audio = document.querySelector("audio");
 var ul = document.querySelector(".lrc-container ul")
-var lrcArray = createLrcArray();
+var lrcArray = createLrcArray();//得到歌词对象数组
 var config = {
     height: 400,
     liHeight: 35,
