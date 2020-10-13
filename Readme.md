@@ -1,5 +1,6 @@
 # 播放器主体
 ## 播放器结构
+```md
 div.player
 |———div.player_nav<!--面板部分 -->
 |   |———div.player_CD<!--CD里的数据 -->
@@ -17,6 +18,7 @@ div.player
 |   |———p.singer<!--歌手 -->
 |———div.player_timeLine<!--进度条 -->
 |   |———div.player_bar
+```
 ## 歌曲列表
 1. 后台传入数据
 2. dom存数据，将数据引入字符串内
@@ -223,10 +225,12 @@ t.pause();//暂停
 ```
 # 歌词滚动
 ## 组件结构
+```md
 div.container
 |——audio <!-- 播放器 -->
 |——div.lrc-container<!-- 歌词控制 -->
 |  |——ul<!-- 歌词内容 -->
+```
 ## 组件样式
 <!-- 浏览器默认样式表——agent stylesheet -->
 1. audio部分
@@ -344,3 +348,76 @@ audio.ontimeupdate = function(){
 }
 ```
 # 日食音量
+## 组件结构
+```md
+div.wrapper
+|——audio
+|——div.title
+|——div.per
+|——div.circle sun
+|——div.circle moon
+```
+## 组件样式
+1. 自适应的圆
+```css
+/* 自适应的圆 相当于自适应的正方形*/
+.circle{
+    position: absolute;
+    /* 父级width * 20% */
+    width:20%;
+    /* 子元素的padding，margin的百分比是基于父级的宽度width */
+    /* 父级width * 20% */
+    padding-top:20%;
+    border-radius:50%;
+    left:30%;
+    top:30%;
+}
+```
+2. 带阴影的圆
+```css
+.sun{
+    background-color: #ffff77;
+    box-shadow: 0 0 50px #ffff77;
+}
+
+.moon{
+    /* background-color:red; */
+    left:52%;
+    cursor: pointer;
+    box-shadow: inset 5px 5px 50px rgba(255,255,119,0.3);
+}
+```
+## 组件行为
+1. 点击
+2. 拖拽
+```md
+.onmousedown —— 鼠标落下
+.onmousemove —— 鼠标移动
+.onmouseup —— 鼠标松开
+```
+```js
+//鼠标拖拽事件 
+moon.onmousedown = function (e) {
+    flag = true;
+    // 计算出鼠标落下点与边界的距离
+    dis = e.clientX - moon.offsetLeft;
+};
+body.onmousemove = function (e) {
+    if (!flag) {
+        return;
+    };
+    // 根据拖拽距离设置当前拖拽元素的位置
+    moon.style.left = (e.clientX - dis) + 'px';
+    // 调用控制音量的函数
+    self.getVoice();
+}
+// 鼠标抬起 结束拖拽事件
+body.onmouseup = function () {
+    flag = false;
+}
+```
+3. 判断覆盖距离
+4. 改变背景颜色，音量大小
+# 音乐播放列表
+# 文本框建议词
+# 回到顶部

@@ -1,9 +1,9 @@
-var obj = {
+var obj = { //this
     init: function () {
+        // this obj
         this.moon = document.getElementsByClassName('moon')[0];
         this.sun = document.getElementsByClassName('sun')[0];
         this.bindEvent();
-
     },
     bindEvent: function () {
         var self = this;
