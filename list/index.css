@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('./images/iconfont.eot');
+    src: url('./images/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./images/iconfont.woff2') format('woff2'),
+        url('./images/iconfont.woff') format('woff'),
+        url('./images/iconfont.ttf') format('truetype'),
+        url('./images/iconfont.svg#iconfont') format('svg');
+}
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    background: #333;
+}
+.container{
+    width: 800px;
+    margin: 0 auto;
+}
+.title{
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+    margin: 30px 0;
+}
+audio{
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+.music{
+    position: relative;
+    background: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.music .list{
+    height: 300px;
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 0;
+    list-style: none;
+}
+.music .list li{
+    border-radius: 9px;
+    display: flex;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 16px;
+    
+}
+
+.music .list li .play,.name,.pause {
+    cursor: pointer;
+}
+.music .list li .name {
+    flex: 1 ;
+}
+.music .list li .play{
+    color: #858585;
+    margin: 0 4px;
+}
+.music .list li .play.iconfont{
+    font-family: "iconfont" !important;
+    font-size: 18px;
+    font-style: normal;
+}
+.music .list li .pause{
+    color: #858585;
+    margin: 0 4px;
+    display:none
+}
+.music .list li .pause.iconfont{
+    font-family: "iconfont" !important;
+    font-size: 18px;
+    font-style: normal;
+}
+.music .list li .close{
+    cursor: pointer;
+    color: #858585;
+    flex: 0 1 auto ;
+}
+.music .list li .close.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+}
+.music .list li:hover{
+    background: #ccc;
+}
+.scroll-bar{
+    cursor: pointer;
+    position: absolute;
+    width: 5px;
+    background: #008c8c;
+    /* height: 100px; */
+    right: 0px;
+    top: 0px;
+    border-radius: 2.5px;
+}
+.music .list  .playing {
+    color:#f40;
+    background: rgba(226, 226, 226, 0.657);
+}
+.music .list  .playing .play{
+    display: none;
+}
+.music .list .playing .pause{
+    display: block;
+}
